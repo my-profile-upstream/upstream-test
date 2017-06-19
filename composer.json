@@ -1,11 +1,19 @@
 {
-    "repositories": {
-        "block_access": {
+  "name": "my-profile-upstream/upstream-test",
+  "type": "project",
+  "description": "Upstream profile",
+  "homepage": "https://github.com/my-profile-upstream/upstream-test",
+  "repositories": {
+      "drupal": {
+          "type": "composer",
+          "url": "https://packages.drupal.org/8"
+      },
+      "block_access": {
             "type": "package",
             "package": {
                 "name": "drupal/block_access",
                 "type": "drupal-module",
-                "version": "7.7.x",
+                "version": "1.0",
                 "source": {
                     "url": "https://github.com/larowlan/block_access",
                     "type": "git",
@@ -18,7 +26,7 @@
             "package": {
                 "name": "drupal/ma_content",
                 "type": "drupal-module",
-                "version": "7.7.x",
+                "version": "1.0",
                 "source": {
                     "url": "git@bitbucket.org:messageagency/ma_content.git",
                     "type": "git",
@@ -31,7 +39,7 @@
             "package": {
                 "name": "drupal/ma_parent",
                 "type": "drupal-theme",
-                "version": "7.7.x",
+                "version": "1.0",
                 "source": {
                     "url": "git@bitbucket.org:messageagency/ma_parent.git",
                     "type": "git",
@@ -53,56 +61,51 @@
         }
     },
     "require": {
-        "composer/installers": "~1.0",
-        "cweagans/composer-patches": "~1.0",
-        "drupal/admin_toolbar": "7.1.19",
-        "drupal/block_visibility_groups": "7.1.1",
-        "drupal/blockgroup": "7.1.0",
-        "drupal/chosen": "7.2.3",
-        "drupal/coffee": "7.1.0-beta2",
-        "drupal/crop": "7.1.2",
-        "drupal/ctools": "7.3.0",
-        "drupal/devel": "7.1.0-rc2",
-        "drupal/default_content": "7.1.0-alpha6",
-        "drupal/ds": "7.3.1",
-        "drupal/entity_reference_revisions": "7.1.3",
-        "drupal/entityqueue": "7.1.0-alpha6",
-        "drupal/field_group": "7.1.0-rc6",
-        "drupal/focal_point": "7.1.0-beta4",
-        "drupal/google_analytics": "7.2.1",
-        "drupal/inline_entity_form": "7.1.0-beta1",
-        "drupal/link_attributes": "7.1.0",
-        "drupal/linkit": "7.4.3",
-        "drupal/mailsystem": "7.4.1",
-        "drupal/masquerade": "7.2.0-beta1",
-        "drupal/menu_block": "7.1.4",
-        "drupal/menu_link_attributes": "7.1.0-beta3",
-        "drupal/menu_trail_by_path": "7.1.1",
-        "drupal/paragraphs": "7.1.1",
-        "drupal/pathauto": "7.1.0",
-        "drupal/redirect": "7.1.0-alpha5",
-        "drupal/responsive_tables_filter": "7.1.1",
-        "drupal/role_delegation": "7.1.0-alpha1",
-        "drupal/sendgrid_integration": "7.1.x-dev",
-        "drupal/search_kint": "7.1.0",
-        "drupal/smart_trim": "7.1.0",
-        "drupal/styleguide": "7.1.0-alpha3",
-        "drupal/super_login": "7.1.0-beta3",
-        "drupal/token": "7.1.0",
-        "drupal/view_unpublished": "7.1.0-alpha1",
-        "drupal/workbench": "7.1.0-alpha4",
-        "drupal/entity": "7.1.0-alpha4",
-        "drupal/block_access": "7.7.x",
-        "drupal/ma_blocks": "7.7.x",
-        "drupal/ma_content": "7.7.x",
-        "drupal/ma_datetime_range_helper": "7.7.x",
-        "drupal/ma_gridmenu": "7.7.x",
-        "drupal/ma_filters": "7.7.x",
-        "drupal/ma_signpost_icons": "7.7.x",
-        "drupal/ma_twig": "7.7.x",
-        "drupal/ma_parent": "7.7.x",
+        "drupal/admin_toolbar": "~1.0",
+        "drupal/block_visibility_groups": "~1.0",
+        "drupal/blockgroup": "~1.0",
+        "drupal/chosen": "~2.0",
+        "drupal/coffee": "~1.0",
+        "drupal/crop": "~1.0",
+        "drupal/ctools": "~3.0",
+        "drupal/devel": "~1.0",
+        "drupal/default_content": "~1.0",
+        "drupal/ds": "~3.0",
+        "drupal/entity_reference_revisions": "~1.0",
+        "drupal/entityqueue": "~1.0",
+        "drupal/field_group": "~1.0",
+        "drupal/focal_point": "~1.0",
+        "drupal/google_analytics": "~2.1",
+        "drupal/inline_entity_form": "~1.0",
+        "drupal/link_attributes": "~1.0",
+        "drupal/linkit": "~4.3",
+        "drupal/mailsystem": "~4.1",
+        "drupal/masquerade": "~2.0",
+        "drupal/menu_block": "~1.4",
+        "drupal/menu_link_attributes": "~1.0",
+        "drupal/menu_trail_by_path": "~1.1",
+        "drupal/paragraphs": "~1.1",
+        "drupal/pathauto": "~1.0",
+        "drupal/redirect": "~1.0",
+        "drupal/responsive_tables_filter": "~1.1",
+        "drupal/role_delegation": "~1.0",
+        "drupal/sendgrid_integration": "~1.0",
+        "drupal/search_kint": "~1.0",
+        "drupal/smart_trim": "~1.0",
+        "drupal/styleguide": "~1.0",
+        "drupal/super_login": "~1.0",
+        "drupal/token": "~1.0",
+        "drupal/view_unpublished": "~1.0",
+        "drupal/workbench": "~1.0",
+        "drupal/entity": "~1.0",
+        "drupal/block_access": "~1.0",
+        "drupal/ma_content": "~1.0",
+        "drupal/ma_parent": "~1.0",
         "library/chosen": "1.0"
     },
+    "conflict": {
+        "drupal/drupal": "*"
+      },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
@@ -110,6 +113,29 @@
             "drupal/menu_block": [
                 "./patches/menu_block-combined_2756675_2809699_2811337.patch"
             ]
-        }
+        },
+          "_readme": [
+              "By default Drupal loads the autoloader from ./vendor/autoload.php.",
+              "To change the autoloader you can edit ./autoload.php.",
+              "This file specifies the packages.drupal.org repository.",
+              "You can read more about this composer repository at:",
+              "https://www.drupal.org/node/2718229"
+          ],
+          "merge-plugin": {
+              "include": [
+                  "core/composer.json"
+              ],
+              "recurse": false,
+              "replace": false,
+              "merge-extra": false
+          },
+          "installer-paths": {
+              "modules/contrib/{$name}": ["type:drupal-module"],
+              "profiles/contrib/{$name}": ["type:drupal-profile"],
+              "themes/contrib/{$name}": ["type:drupal-theme"],
+              "drush/contrib/{$name}": ["type:drupal-drush"],
+              "modules/custom/{$name}": ["type:drupal-custom-module"],
+              "themes/custom/{$name}": ["type:drupal-custom-theme"]
+          }
     }
 }
