@@ -1,0 +1,189 @@
+core: 8.x
+api: 2
+
+# chosen library doesn't play nice with drupal site install, and chosen module doesn't have a makefile, so we have to define this library dependency explicitly.
+libraries:
+  chosen:
+    download:
+      type: "get"
+      url: "https://github.com/harvesthq/chosen/releases/download/v1.6.1/chosen_v1.6.1.zip"
+    destination: /libraries
+    directory_name: chosen
+
+projects:
+  admin_toolbar:
+    version: ~
+    subdir: contrib
+  block_visibility_groups:
+    version: ~
+    subdir: contrib
+  blockgroup:
+    version: ~
+    subdir: contrib
+  chosen:
+    version: ~
+    subdir: contrib
+  coffee:
+    version: ~
+    subdir: contrib
+  crop:
+    version: ~
+    subdir: contrib
+  ctools:
+    version: ~
+    subdir: contrib
+  devel:
+    version: ~
+    subdir: contrib
+  default_content:
+    version: ~
+    subdir: contrib
+  ds:
+    version: ~
+    subdir: contrib
+  entity_reference_revisions:
+    version: ~
+    subdir: contrib
+  entityqueue:
+    version: ~
+    subdir: contrib
+  field_group:
+    version: ~
+    subdir: contrib
+  focal_point:
+    version: ~
+    subdir: contrib
+  google_analytics:
+    version: ~
+    subdir: contrib
+  inline_entity_form:
+    version: ~
+    subdir: contrib
+  link_attributes:
+    version: ~
+    subdir: contrib
+  linkit:
+    version: ~
+    subdir: contrib
+  mailsystem:
+    version: ~
+    subdir: contrib
+  masquerade:
+    version: ~
+    subdir: contrib
+  menu_block:
+    subdir: contrib
+    version: ~
+    patch:
+      - "./patches/menu_block-combined_2756675_2809699_2811337.patch"
+  menu_link_attributes:
+    version: ~
+    subdir: contrib
+  menu_trail_by_path:
+    version: ~
+    subdir: contrib
+  paragraphs:
+    version: ~
+    subdir: contrib
+  pathauto:
+    version: ~
+    subdir: contrib
+  redirect:
+    verison: ~
+    subdir: contrib
+  responsive_tables_filter:
+    version: ~
+    subdir: contrib
+  role_delegation:
+    version: ~
+    subdir: contrib
+  sendgrid_integration:
+    version: ~
+    subdir: contrib
+  search_kint:
+    version: ~
+    subdir: contrib
+  smart_trim:
+    version: ~
+    subdir: contrib
+  styleguide:
+    version: ~
+    subdir: contrib
+  super_login:
+    version: ~
+    subdir: contrib
+  token:
+    version: ~
+    subdir: contrib
+  view_unpublished:
+    version: ~
+    subdir: contrib
+  workbench:
+    version: ~
+    subdir: contrib
+  entity:
+    version: ~
+    subdir: contrib
+  # At some point, block_access will be released on d.o... we hope.
+  block_access:
+    subdir: contrib
+    type: module
+    download:
+      type: git
+      url: 'https://github.com/larowlan/block_access'
+      branch: '8.x-1.x'
+  ma_blocks:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_blocks.git'
+      branch: master
+  ma_content:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_content.git'
+      branch: master
+  ma_datetime_range_helper:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_datetime_range_helper.git'
+      branch: master
+  ma_gridmenu:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_gridmenu.git'
+      branch: master
+  ma_filters:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_filters.git'
+      branch: master
+  ma_signpost_icons:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_signpost_icons.git'
+      branch: master
+  ma_twig:
+    type: module
+    subdir: message_agency
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_twig.git'
+      branch: master
+  ma_parent:
+    type: theme
+    download:
+      type: git
+      url: 'git@bitbucket.org:messageagency/ma_parent.git'
+      branch: master

@@ -1,0 +1,102 @@
+name: Message Agency Sprout
+type: profile
+description: Create a new Sprout.
+core: 8.x
+version: 8.x-0.1
+
+distribution:
+  name: Message Agency Sprout
+
+dependencies:
+  - admin_toolbar
+  - admin_toolbar_tools
+  - automated_cron
+  - block
+  - block_access
+  - block_content
+  - block_visibility_groups
+  - blockgroup
+  - breakpoint
+  - chosen
+  - ckeditor
+  - coffee
+  - color
+  - comment
+  - config
+  - contact
+  - contextual
+  - crop
+  - ctools
+  - datetime
+  - datetime_range
+  - dblog
+  - devel
+  - ds
+  - ds_extras
+  - dynamic_page_cache
+  - editor
+  - entity_reference_revisions
+  - entityqueue
+  - field
+  - field_group
+  - field_ui
+  - file
+  - filter
+  - focal_point
+  - google_analytics
+  - help
+  - history
+  - image
+  - inline_entity_form
+  - kint
+  - link
+  - link_attributes
+  - linkit
+  - ma_blocks
+  - ma_datetime_range_helper
+  - ma_filters
+  - ma_gridmenu
+  - ma_signpost_icons
+  - ma_twig
+  - ma_twig
+  - mailsystem
+  - masquerade
+  - menu_block
+  - menu_link_attributes
+  - menu_link_content
+  - menu_trail_by_path
+  - menu_ui
+  - node
+  - options
+  - page_cache
+  - paragraphs
+  - path
+  - pathauto
+  - quickedit
+  - rdf
+  - redirect
+  - redirect_404
+  - responsive_tables_filter
+  - role_delegation
+  - search
+  - search_kint
+  - shortcut
+  - smart_trim
+  - styleguide
+  - super_login
+  - system
+  - taxonomy
+  - text
+  - token
+  - toolbar
+  - tour
+  - update
+  - user
+  - view_unpublished
+  - views
+  - views_ui
+  - workbench
+
+themes:
+  - seven
+  - ma_parent

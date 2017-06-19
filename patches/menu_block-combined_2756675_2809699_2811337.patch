@@ -1,0 +1,274 @@
+diff --git a/menu_block.module b/menu_block.module
+index 0614e91..9a1036a 100644
+--- a/menu_block.module
++++ b/menu_block.module
+@@ -1,5 +1,7 @@
+ <?php
+
++use Drupal\Core\Block\BlockPluginInterface;
++
+ /**
+  * Implements hook_theme_suggestions_HOOK() for "block".
+  */
+@@ -99,3 +101,12 @@ function menu_block_theme_suggestions_menu(array $variables) {
+
+   return $suggestions;
+ }
++
++/**
++ * Implements hook_block_view_alter().
++ */
++function menu_block_block_view_alter(array &$build, BlockPluginInterface $block) {
++  if ($block->getBaseId() === 'menu_block') {
++    $build['#configuration']['label'] = $block->blockLabel();
++  }
++}
+diff --git a/config/schema/menu_block.schema.yml b/config/schema/menu_block.schema.yml
+index ad08127..e6f8cc7 100644
+--- a/config/schema/menu_block.schema.yml
++++ b/config/schema/menu_block.schema.yml
+@@ -14,6 +14,9 @@ block.settings.menu_block:*:
+     parent:
+       type: string
+       label: 'Parent menu link'
++    fixed_to_level:
++      type: boolean
++      label: 'Fixed parent starting level'
+     suggestion:
+       type: string
+       label: 'Theme suggestion'
+diff --git a/src/Plugin/Block/MenuBlock.php b/src/Plugin/Block/MenuBlock.php
+index fab522a..0e5a146 100644
+--- a/src/Plugin/Block/MenuBlock.php
++++ b/src/Plugin/Block/MenuBlock.php
+@@ -3,6 +3,7 @@
+ namespace Drupal\menu_block\Plugin\Block;
+
+ use Drupal\Core\Form\FormStateInterface;
++use Drupal\menu_link_content\Entity\MenuLinkContent;
+ use Drupal\system\Entity\Menu;
+ use Drupal\system\Plugin\Block\SystemMenuBlock;
+
+@@ -47,13 +48,56 @@ class MenuBlock extends SystemMenuBlock {
+
+     /** @var \Drupal\Core\Menu\MenuParentFormSelectorInterface $menu_parent_selector */
+     $menu_parent_selector = \Drupal::service('menu.parent_form_selector');
+-    $form['advanced']['parent'] = $menu_parent_selector->parentSelectElement($config['parent'], '', $menus);
++    if (strpos($config['parent'], 'active_trail') === false) {
++      $form['advanced']['parent'] = $menu_parent_selector->parentSelectElement($config['parent'], '', $menus);
++    }
++    else {
++      $form['advanced']['parent'] = [
++        '#type' => 'select',
++        '#options' => $menu_parent_selector->getParentSelectOptions('', $menus),
++        '#default_value' => $config['parent'],
++      ];
++    }
++    $form['advanced']['parent']['#options'] += [
++      $menu_name . ':active_trail' => $this->t('<Active trail>')->render(),
++      $menu_name . ':active_trail_parent' => $this->t('<Active trail parent>')->render(),
++    ];
+
+     $form['advanced']['parent'] += [
+       '#title' => $this->t('Fixed parent item'),
+       '#description' => $this->t('Alter the options in “Menu levels” to be relative to the fixed parent item. The block will only contain children of the selected menu link.'),
+     ];
+
++    $form['advanced']['fixed_to_level'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Fix active trail to menu level'),
++      '#description' => $this->t('This will fix the starting level. Example, if you select a menu level of 2, the menu block will start from the second level no matter where you are below it.'),
++      '#default_value' => $config['fixed_to_level'],
++      '#states' => [
++        'visible' => [
++          ':input[name="settings[parent]"]' => ['value' => $menu_name . ':active_trail_parent'],
++        ]
++      ]
++    ];
++
++    $form['advanced']['label_type'] = [
++      '#type' => 'select',
++      '#title' => 'Use the following as title',
++      '#options' => [
++        'block' => $this->t('Block title'),
++        'menu' => $this->t('Menu title'),
++        'active_item' => $this->t('Active item\'s title'),
++        'parent' => $this->t('Active trail\'s parent title'),
++        'root' => $this->t('Active trail\'s root title')
++      ],
++      '#default_value' => $config['label_type'],
++      '#states' => [
++        'visible' => [
++          ':input[name="settings[label_display]"]' => ['checked' => TRUE]
++        ]
++      ]
++    ];
++
+     $form['style'] = [
+       '#type' => 'details',
+       '#title' => $this->t('HTML and style options'),
+@@ -102,7 +146,9 @@ class MenuBlock extends SystemMenuBlock {
+     $this->configuration['depth'] = $form_state->getValue('depth');
+     $this->configuration['expand'] = $form_state->getValue('expand');
+     $this->configuration['parent'] = $form_state->getValue('parent');
++    $this->configuration['fixed_to_level'] = $form_state->getValue('fixed_to_level');
+     $this->configuration['suggestion'] = $form_state->getValue('suggestion');
++    $this->configuration['label_type'] = $form_state->getValue('label_type');
+   }
+
+   /**
+@@ -117,6 +163,7 @@ class MenuBlock extends SystemMenuBlock {
+     $depth = $this->configuration['depth'];
+     $expand = $this->configuration['expand'];
+     $parent = $this->configuration['parent'];
++    $fixed_to_level = $this->configuration['fixed_to_level'];
+     $suggestion = $this->configuration['suggestion'];
+
+     $parameters->setMinDepth($level);
+@@ -133,7 +180,34 @@ class MenuBlock extends SystemMenuBlock {
+     }
+     // When a fixed parent item is set, root the menu tree at the given ID.
+     if ($menuLinkID = str_replace($menu_name . ':', '', $parent)) {
+-      $parameters->setRoot($menuLinkID);
++      // Active trail or Active trail parent option.
++      if (strpos($menuLinkID, 'active_trail') !== false) {
++        $trailIds = $this->menuActiveTrail->getActiveTrailIds($menu_name);
++        $trailIds = array_reverse(array_filter($trailIds));
++        if ($menuLinkID == 'active_trail') {
++          $menuLinkID = end($trailIds);
++        }
++        // Active trail parent.
++        else {
++          if (!$fixed_to_level) {
++            // pop the current link and return the one before it
++            array_pop($trailIds);
++            $menuLinkID = end($trailIds);
++          } else {
++            $trailIds = array_values($trailIds);
++
++            foreach ($trailIds as $key => $id) {
++              if ($level == ($key + 1)) {
++                $menuLinkID = $id;
++                break;
++              }
++            }
++          }
++        }
++      }
++      if ($menuLinkID) {
++        $parameters->setRoot($menuLinkID);
++      }
+
+       // If the starting level is 1, we always want the child links to appear,
+       // but the requested tree may be empty if the tree does not contain the
+@@ -184,8 +258,110 @@ class MenuBlock extends SystemMenuBlock {
+       'depth' => 0,
+       'expand' => 0,
+       'parent' => $this->getDerivativeId() . ':',
++      'fixed_to_level' => 0,
++      'label_type' => 'block',
+       'suggestion' => strtr($this->getDerivativeId(), '-', '_'),
+     ];
+   }
+
++  /**
++   * @return string
++   */
++  public function blockLabel() {
++    switch ($this->configuration['label_type']) {
++      case 'menu':
++        return $this->getMenuTitle();
++        break;
++      case 'active_item':
++        return $this->getActiveItemTitle();
++        break;
++      case 'parent':
++        return $this->getActiveTrailParentTitle();
++        break;
++      case 'root':
++        return $this->getActiveTrailRootTitle();
++        break;
++      case 'block':
++      default:
++        return $this->label();
++    }
++  }
++
++  /**
++   * @return string
++   */
++  protected function getMenuTitle() {
++    return Menu::load($this->getDerivativeId())->label();
++  }
++
++  /**
++   * @return string
++   */
++  protected function getActiveItemTitle() {
++    $activeTrailIds = $this->getDerivativeActiveTrailIds();
++
++    if ($activeTrailIds) {
++      return $this->getMenuLinkTitleByPluginId(reset($activeTrailIds));
++    }
++
++    return '';
++  }
++
++  /**
++   * @return string
++   */
++  protected function getActiveTrailParentTitle() {
++    $activeTrailIds = $this->getDerivativeActiveTrailIds();
++
++    if ($activeTrailIds) {
++      if (count($activeTrailIds) === 1) {
++        return $this->getActiveItemTitle();
++      }
++      return $this->getMenuLinkTitleByPluginId(next($activeTrailIds));
++    }
++
++    return '';
++  }
++
++  /**
++   * @return string
++   */
++  protected function getActiveTrailRootTitle() {
++    $activeTrailIds = $this->getDerivativeActiveTrailIds();
++
++    if ($activeTrailIds) {
++      return $this->getMenuLinkTitleByPluginId(end($activeTrailIds));
++    }
++
++    return '';
++  }
++
++  /**
++   * @return array
++   */
++  private function getDerivativeActiveTrailIds() {
++    $menuId = $this->getDerivativeId();
++    return array_filter($this->menuActiveTrail->getActiveTrailIds($menuId));
++  }
++
++  /**
++   * @param string $pluginId
++   * @return string
++   */
++  private function getMenuLinkTitleByPluginId($pluginId) {
++    list($entityType, $entityUuid) = explode(':', $pluginId);
++    $parentIds = \Drupal::entityQuery($entityType)
++      ->condition('uuid', $entityUuid)
++      ->execute();
++
++    if ($parentIds) {
++      $parentId = reset($parentIds);
++      $parent = MenuLinkContent::load($parentId);
++
++      return $parent->getTitle();
++    }
++
++    return '';
++  }
++
+ }

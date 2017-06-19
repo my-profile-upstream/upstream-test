@@ -1,0 +1,115 @@
+{
+    "repositories": {
+        "block_access": {
+            "type": "package",
+            "package": {
+                "name": "drupal/block_access",
+                "type": "drupal-module",
+                "version": "7.7.x",
+                "source": {
+                    "url": "https://github.com/larowlan/block_access",
+                    "type": "git",
+                    "reference": "8.x-1.x"
+                }
+            }
+        },
+        "ma_content": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_content",
+                "type": "drupal-module",
+                "version": "7.7.x",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_content.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_parent": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_parent",
+                "type": "drupal-theme",
+                "version": "7.7.x",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_parent.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "libraries/chosen": {
+            "type": "package",
+            "package": {
+                "name": "library/chosen",
+                "version": "1.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/harvesthq/chosen/releases/download/v1.6.1/chosen_v1.6.1.zip",
+                    "type": "zip"
+                }
+            }
+        }
+    },
+    "require": {
+        "composer/installers": "~1.0",
+        "cweagans/composer-patches": "~1.0",
+        "drupal/admin_toolbar": "7.1.19",
+        "drupal/block_visibility_groups": "7.1.1",
+        "drupal/blockgroup": "7.1.0",
+        "drupal/chosen": "7.2.3",
+        "drupal/coffee": "7.1.0-beta2",
+        "drupal/crop": "7.1.2",
+        "drupal/ctools": "7.3.0",
+        "drupal/devel": "7.1.0-rc2",
+        "drupal/default_content": "7.1.0-alpha6",
+        "drupal/ds": "7.3.1",
+        "drupal/entity_reference_revisions": "7.1.3",
+        "drupal/entityqueue": "7.1.0-alpha6",
+        "drupal/field_group": "7.1.0-rc6",
+        "drupal/focal_point": "7.1.0-beta4",
+        "drupal/google_analytics": "7.2.1",
+        "drupal/inline_entity_form": "7.1.0-beta1",
+        "drupal/link_attributes": "7.1.0",
+        "drupal/linkit": "7.4.3",
+        "drupal/mailsystem": "7.4.1",
+        "drupal/masquerade": "7.2.0-beta1",
+        "drupal/menu_block": "7.1.4",
+        "drupal/menu_link_attributes": "7.1.0-beta3",
+        "drupal/menu_trail_by_path": "7.1.1",
+        "drupal/paragraphs": "7.1.1",
+        "drupal/pathauto": "7.1.0",
+        "drupal/redirect": "7.1.0-alpha5",
+        "drupal/responsive_tables_filter": "7.1.1",
+        "drupal/role_delegation": "7.1.0-alpha1",
+        "drupal/sendgrid_integration": "7.1.x-dev",
+        "drupal/search_kint": "7.1.0",
+        "drupal/smart_trim": "7.1.0",
+        "drupal/styleguide": "7.1.0-alpha3",
+        "drupal/super_login": "7.1.0-beta3",
+        "drupal/token": "7.1.0",
+        "drupal/view_unpublished": "7.1.0-alpha1",
+        "drupal/workbench": "7.1.0-alpha4",
+        "drupal/entity": "7.1.0-alpha4",
+        "drupal/block_access": "7.7.x",
+        "drupal/ma_blocks": "7.7.x",
+        "drupal/ma_content": "7.7.x",
+        "drupal/ma_datetime_range_helper": "7.7.x",
+        "drupal/ma_gridmenu": "7.7.x",
+        "drupal/ma_filters": "7.7.x",
+        "drupal/ma_signpost_icons": "7.7.x",
+        "drupal/ma_twig": "7.7.x",
+        "drupal/ma_parent": "7.7.x",
+        "library/chosen": "1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "patches": {
+            "drupal/menu_block": [
+                "./patches/menu_block-combined_2756675_2809699_2811337.patch"
+            ]
+        }
+    }
+}
