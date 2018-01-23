@@ -21,32 +21,6 @@
                 }
             }
         },
-        "ma_content": {
-            "type": "package",
-            "package": {
-                "name": "drupal/ma_content",
-                "type": "drupal-module",
-                "version": "1.0",
-                "source": {
-                    "url": "git@bitbucket.org:messageagency/ma_content.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
-        "ma_parent": {
-            "type": "package",
-            "package": {
-                "name": "drupal/ma_parent",
-                "type": "drupal-theme",
-                "version": "1.0",
-                "source": {
-                    "url": "git@bitbucket.org:messageagency/ma_parent.git",
-                    "type": "git",
-                    "reference": "master"
-                }
-            }
-        },
         "libraries/chosen": {
             "type": "package",
             "package": {
