@@ -32,6 +32,175 @@
                     "type": "zip"
                 }
             }
+        },
+        "ma_bootstrap": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_bootstrap",
+                "type": "drupal-theme",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_bootstrap.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_bg_img_formatter": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_bg_img_formatter",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_bg_img_formatter.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_blocks": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_blocks",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_blocks.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_content": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_content",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_content.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_config_sprout": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_config_sprout",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_config_sprout.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_config_base": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_config_base",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_config_base.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_datetime_range_helper": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_datetime_range_helper",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_datetime_range_helper.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_filters": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_filters",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_filters.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_signpost_icons": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_signpost_icons",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_signpost_icons.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_sprout_layouts": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_sprout_layouts",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_sprout_layouts.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_sprout_paragraphs": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_sprout_paragraphs",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_sprout_paragraphs.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_sprout_menus": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_sprout_menus",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_sprout_menus.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "ma_twig": {
+            "type": "package",
+            "package": {
+                "name": "drupal/ma_twig",
+                "type": "drupal-module",
+                "version": "1.0",
+                "source": {
+                    "url": "git@bitbucket.org:messageagency/ma_twig.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
     },
     "require": {
@@ -73,9 +242,19 @@
         "drupal/workbench": "~1.0",
         "drupal/entity": "~1.0",
         "drupal/block_access": "~1.0",
-        "drupal/ma_content": "~1.0",
-        "drupal/ma_parent": "~1.0",
-        "library/chosen": "1.0"
+        "library/chosen": "1.0",
+        "drupal/ma_bootstrap": "1.0",
+        "drupal/ma_twig" : "1.0",
+        "drupal/ma_sprout_menus": "1.0",
+        "drupal/ma_sprout_paragraphs": "1.0",
+        "drupal/ma_sprout_layouts": "1.0",
+        "drupal/ma_signpost_icons": "1.0",
+        "drupal/ma_filters": "1.0",
+        "drupal/ma_datetime_range_helper": "1.0",
+        "drupal/ma_config_base": "1.0",
+        "drupal/ma_config_sprout": "1.0",
+        "drupal/ma_content": "1.0",
+        "drupal/ma_bg_img_formatter": "1.0"
     },
     "conflict": {
         "drupal/drupal": "*"
